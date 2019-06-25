@@ -1,20 +1,15 @@
 const mongoose = require('mongoose')
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const birdSchema = mongoose.Schema({
-  id: {
-    type: Number,
-    unique: true
-  },
   name: String,
   date: Date,
-  time: String,
   image: String,
-  latitude: Number,
-  longitude: Number,
-  story: String,
-  description: String,
-  color: String
+  location: String,
+  story: String
 })
+
+birdSchema.plugin(AutoIncrement, {inc_field: 'id'})
 
 const Bird = mongoose.model('Bird', birdSchema)
 

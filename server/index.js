@@ -4,6 +4,7 @@ const parse = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 const routes = require('./routes.js')
+const db = require('../db/index.js')
 
 const app = express()
 

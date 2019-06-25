@@ -7,7 +7,8 @@ router.route('/')
   // .delete(controller.deleteBird)
   // .put(controller.updateBird)
 
-router.route('/data')
+router.route('/data/')
   .get(controller.getBirdData)
+  .post(controller.getBirdData)
 
 module.exports = router
