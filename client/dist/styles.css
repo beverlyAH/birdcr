@@ -6,6 +6,13 @@
   width: 90%;
 }
 
+.hidealert {
+  visibility: hidden
+}
+.showalert {
+  visibility: visible
+}
+
 /* .form-group {
   width: 90%;
 } */

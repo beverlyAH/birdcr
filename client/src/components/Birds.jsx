@@ -15,7 +15,7 @@ class Birds extends React.Component {
         <Search search={this.props.search} types={this.props.types} sort={this.props.sort} 
         change={this.props.change} update={this.props.update} />
         {this.props.birds.map((bird) => {
-          return (<BirdBox key={bird.id} info={bird} />)
+          return (<BirdBox key={bird.id} info={bird} delete={this.props.delete} />)
         })}
         </CardColumns>
     )

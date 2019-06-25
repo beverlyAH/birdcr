@@ -44,5 +44,17 @@ module.exports = {
       .catch(err => {
         res.send(err)
       })
+  },
+  deleteBird: (req, res) => {
+    return Bird.deleteOne({
+      id: req.query.id
+    })
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      res.send(500)
+      console.log(err)
+    })
   }
 }

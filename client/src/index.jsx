@@ -17,10 +17,21 @@ class Log extends React.Component {
     this.getBirdTypes = this.getBirdTypes.bind(this)
     this.searchWikipedia = this.searchWikipedia.bind(this)
     this.sort = this.sort.bind(this)
+    this.removeSighting = this.removeSighting.bind(this)
   }
 
   componentDidMount() {
     this.getBirds()
+  }
+
+  removeSighting(id) {
+    axios.delete('/birds/', {params: {id: id}})
+      .then(results => {
+        this.getBirds()
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   getBirdTypes() {
@@ -74,7 +85,7 @@ class Log extends React.Component {
       <div>
         <div>
           <Birds birds={this.state.birds} search={this.searchWikipedia} types={this.state.types}
-          sort={this.sort} change={this.changeType} update={this.getBirds}/>
+          sort={this.sort} change={this.changeType} update={this.getBirds} delete={this.removeSighting} />
         </div>
       </div>
     )

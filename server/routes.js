@@ -4,6 +4,7 @@ const controller = require('./controller.js');
 router.route('/')
   .post(controller.saveBird)
   .get(controller.getBirds)
+  .delete(controller.deleteBird)
   // .delete(controller.deleteBird)
   // .put(controller.updateBird)
 
