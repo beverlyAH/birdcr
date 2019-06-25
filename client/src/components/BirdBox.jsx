@@ -16,7 +16,7 @@ class BirdBox extends React.Component {
   const handleClose = () => this.setState({ show: false });
     return (
       <Card style={{ width: '475px' }} className="bird">
-        <Card.Img variant="top" src={this.props.info.image} />
+        {this.props.info.image && this.props.info.image ? <Card.Img variant="top" src={this.props.info.image} /> : <div></div>}
         <Card.Body>
           <Card.Title>{this.props.info.name}</Card.Title>
           <Card.Text>

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import Search from './components/Search.jsx'
 import SightingForm from './components/SightingForm.jsx'
 import Birds from './components/Birds.jsx'
-import axios from 'axios';
+import axios from 'axios'
 
 
 class Log extends React.Component {

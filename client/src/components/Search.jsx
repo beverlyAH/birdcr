@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Col, Button, Card, Dropdown } from 'react-bootstrap'
-import SightingForm from './SightingForm.jsx';
+import SightingForm from './SightingForm.jsx'
 
 class Search extends React.Component {
   constructor(props) {
