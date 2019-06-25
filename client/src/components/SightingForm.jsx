@@ -37,7 +37,6 @@ class SightingForm extends React.Component {
       }
     axios.post('/birds/', this.state.formData)
     .then(results => {
-      console.log(results)
       this.props.update(() => {
         this.reset()
         this.props.clear()
@@ -49,9 +48,7 @@ class SightingForm extends React.Component {
   }
 
   handleSelect(e) {
-    this.setState({date: e._d}, () => {
-      console.log(this.state.date)
-    })
+    this.setState({date: e._d})
   }
 
   handleChange(key) {
