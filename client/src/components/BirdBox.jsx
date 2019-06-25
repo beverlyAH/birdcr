@@ -3,6 +3,7 @@ import { Card, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { GOOGLE_KEY } from '../../../config.js'
 
 const BirdBox = (props) => {
+  let key = process.env.GOOGLE_KEY || GOOGLE_KEY
     return (
       <Card style={{ width: '475px' }} className="bird">
         <Card.Img variant="top" src={props.info.image} />
