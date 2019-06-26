@@ -67,7 +67,7 @@ class Search extends React.Component {
             </Dropdown.Toggle>
 
           <Dropdown.Menu >
-            <Dropdown.Item key="0" onSelect={this.props.update}>All birds</Dropdown.Item>
+            <Dropdown.Item key="0" onSelect={this.props.update}>ALL BIRDS</Dropdown.Item>
             {this.props.types.map((type) => {
               return (<Dropdown.Item key={type} onSelect={() => {
               this.props.sort(type)}} value={type}>{type}</Dropdown.Item>)

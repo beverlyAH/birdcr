@@ -37,8 +37,8 @@ class Log extends React.Component {
   getBirdTypes() {
     let birds = {}
     for (let i = 0; i < this.state.birds.length; i++) {
-      if(!birds[this.state.birds[i].name]) {
-        birds[this.state.birds[i].name] = true
+      if(!birds[this.state.birds[i].name.toUpperCase()]) {
+        birds[this.state.birds[i].name.toUpperCase()] = true
       }
     }
     this.setState({types: Object.keys(birds)})
@@ -63,7 +63,7 @@ class Log extends React.Component {
   sort(type) {
     let matches = []
     for (let i = 0; i < this.state.allBirds.length; i++) {
-      if(this.state.allBirds[i].name === type) {
+      if(this.state.allBirds[i].name.toUpperCase() === type) {
         matches.push(this.state.allBirds[i])
       }
     }
