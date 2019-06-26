@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card, ListGroup, ListGroupItem, Toast, Button } from 'react-bootstrap'
-import { GOOGLE_KEY } from '../../../config.js'
 
 class BirdBox extends React.Component {
   constructor(props) {
