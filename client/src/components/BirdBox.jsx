@@ -1,12 +1,6 @@
 import React from 'react'
 import { Card, ListGroup, ListGroupItem, Toast, Button } from 'react-bootstrap'
-
-try {
-  import { key } from '../../../config.js'
-} catch {
-  const GOOGLE_KEY = process.env.GOOGLE_KEY
-}
-
+const GOOGLE_KEY = process.env.GOOGLE_KEY || key
 
 class BirdBox extends React.Component {
   constructor(props) {
