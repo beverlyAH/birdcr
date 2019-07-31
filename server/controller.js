@@ -12,7 +12,8 @@ module.exports = {
       res.send(data)
     })
     .catch(err => {
-      res.send(err)
+      console.log('error occurring retrieved saved sightings', err)
+      res.send(500)
     })
   },
   saveBird: (req, res) => {
@@ -24,12 +25,11 @@ module.exports = {
       story: req.body.story
     })
     .then(data => {
-      console.log(data)
       res.send(data)
     })
     .catch(err => {
-      console.log(err)
-      res.send(err)
+      console.log('error occurred saving sighting, ', err)
+      res.send(500)
     })
   },
   editBird: (req, res) => {
@@ -95,8 +95,8 @@ module.exports = {
       res.send(data)
     })
     .catch(err => {
-      res.send(500)
       console.log(err)
+      res.send(500)
     })
   }
 }
