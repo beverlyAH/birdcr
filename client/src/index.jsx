@@ -2,11 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Search from './components/Search.jsx'
 import SightingForm from './components/SightingForm.jsx'
-import Birds from './components/Birds.jsx'
+// import Birds from './components/Birds.jsx'
 import axios from 'axios'
+import Gallery from './components/Gallery.jsx'
+import { Card, CardGroup, CardDeck, CardColumns } from 'react-bootstrap'
+import BirdBox from './components/BirdBox.jsx'
 
-
-class Log extends React.Component {
+class Birds extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -18,6 +20,7 @@ class Log extends React.Component {
     this.searchWikipedia = this.searchWikipedia.bind(this)
     this.sort = this.sort.bind(this)
     this.removeSighting = this.removeSighting.bind(this)
+    this.editSighting = this.editSighting.bind(this)
   }
 
   componentDidMount() {
@@ -28,6 +31,16 @@ class Log extends React.Component {
     axios.delete('/birds/', {params: {id: id}})
       .then(results => {
         this.getBirds()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  editSighting(id) {
+    axios.put('/birds', {data: id})
+      .then(results => {
+        console.log(results.data)
       })
       .catch(err => {
         console.log(err)
@@ -73,7 +86,9 @@ class Log extends React.Component {
   searchWikipedia(query, callback) {
     axios.post(`birds/data/`, {data: {query: query}})
     .then(results => {
-      callback(null, results)
+      this.setState({images: results.data}, () => {
+        callback(null, results)
+      })
     })
     .catch(err => {
       callback(err)
@@ -82,14 +97,15 @@ class Log extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <Birds birds={this.state.birds} search={this.searchWikipedia} types={this.state.types}
-          sort={this.sort} change={this.changeType} update={this.getBirds} delete={this.removeSighting} />
-        </div>
-      </div>
+        <CardColumns>
+        <Search search={this.searchWikipedia} types={this.state.types} sort={this.sort} 
+        change={this.editSighting} update={this.props.update} />
+        {this.state.birds && this.state.birds.map((bird) => {
+          return (<BirdBox key={bird.id} info={bird} delete={this.removeSighting} />)
+        })}
+        </CardColumns>
     )
   }
 }
 
-ReactDOM.render(<Log />, document.getElementById("app"))
+ReactDOM.render(<Birds />, document.getElementById("app"))

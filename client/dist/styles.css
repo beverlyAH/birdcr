@@ -1,3 +1,16 @@
+.gallery {
+  margin: 2px;
+  border: 1px solid black;
+  width: 150px;
+  height: 100px;
+}
+
+.gallery:hover {
+  border: 5px solid red;
+  background-color: red;
+  outline: 10px
+}
+
 .formImage {
   width:300px;
 }

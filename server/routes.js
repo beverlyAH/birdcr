@@ -5,11 +5,11 @@ router.route('/')
   .post(controller.saveBird)
   .get(controller.getBirds)
   .delete(controller.deleteBird)
-  // .delete(controller.deleteBird)
-  // .put(controller.updateBird)
+  .put(controller.editBird)
 
 router.route('/data/')
   .get(controller.getBirdData)
   .post(controller.getBirdData)
+
 
 module.exports = router

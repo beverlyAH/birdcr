@@ -68,7 +68,8 @@ class SightingForm extends React.Component {
   }
 
   render() {
-    return (<Card.Body>
+    return (
+    <Card.Body>
       <label>{this.props.name ? this.props.name : 'Species Name'}</label>
       <InputGroup className="mb-3">
       <InputGroup.Prepend>

@@ -6,7 +6,7 @@ var db = mongoose.connect(mongoUri, {useNewUrlParser: true}, (err) => {
   if(err) {
     console.log('error connecting to database.')
   } else {
-    console.log('connected to database!')
+    // console.log('connected to database!')
   }
 })
 

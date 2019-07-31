@@ -1,16 +1,22 @@
 import React from 'react'
-import { Form, Col, Button, Card, Dropdown } from 'react-bootstrap'
+import { Form, Col, Button, Card, Dropdown, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import SightingForm from './SightingForm.jsx'
+import Sorter from './Sorter.jsx'
+import Gallery from './Gallery.jsx'
 
 class Search extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       name: '',
-      image: false,
-      message: ''
+      images: [],
+      message: '',
+      showGallery: false
     }
     this.clear = this.clear.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.handleOpen = this.handleOpen.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
   }
 
   handleChange(e) {
@@ -21,24 +27,48 @@ class Search extends React.Component {
     this.setState({
       name: '',
       image: false,
-      message: ''
+      message: '',
+      showGallery: false
     })
   }
 
-  handleSubmit() {
+  handleOpen() {
+    this.setState({showGallery: true})
+  }
+
+  handleClose() {
+    this.setState({showGallery: false})
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
     if(!this.state.name) {
-      return;
+      return
     } else {
       this.props.search(this.state.name, (err, results) => {
         if(err) {
           console.log(err)
         } else {
-          this.setState({image: results.data}, () => {
-            this.setState({message: `${this.state.name} image retrieved.`})
+          this.setState({images: results.data}, () => {
+            this.setState({message: `${this.state.name} images retrieved.`}, () => {
+              this.setState({showGallery: true})
+            })
           })
         }
       })
     }
+  }
+
+  handleSelect(e) {
+    console.log(e.target)
+    if(!e.target.src) {
+      return
+    }
+    this.setState({image: e.target.src}, () => {
+      this.setState({message: `${this.state.name} image selected.`}, () => {
+        this.handleClose()
+      })
+    })
   }
 
   render() {
@@ -48,33 +78,35 @@ class Search extends React.Component {
         <Form>
           <Form.Row>
             <Col>
-              <Form.Control placeholder="Species" value={this.state.name} onChange={this.handleChange.bind(this)} />
+              <Form.Control placeholder="Species"
+              value={this.state.name} onSubmit={this.handleSubmit.bind(this)}
+              onChange={this.handleChange.bind(this)} />
               {this.state.message}
             </Col>
             <Col>
-            <Button variant="info" onClick={this.handleSubmit.bind(this)}>
+              <OverlayTrigger
+                key="right"
+                placement="right"
+                overlay={
+                  <Tooltip id={`tooltip-right`}>
+                    Photos are retrieved from <strong>Wikipedia</strong>.
+                    Make sure to match desired species with a Wiki result. 
+                  </Tooltip>
+                }>
+            <Button variant="info" type="submit" onClick={this.handleSubmit.bind(this)}>
               Submit
               </Button>
+              </OverlayTrigger>
+              <Gallery show={this.state.showGallery} 
+              gallery={this.state.images} open={this.handleOpen} close={this.handleClose}
+              clear={this.clear} select={this.handleSelect} />
+              {/* </OverlayTrigger> */}
             </Col>
           </Form.Row>
         </Form>
         </Card.Body>
           <SightingForm image={this.state.image} clear={this.clear} name={this.state.name} update={this.props.update}/>
-          <Card.Body>
-            <Dropdown drop="right">
-            <Dropdown.Toggle variant="info" id="dropdown-basic">
-              Sort by type
-            </Dropdown.Toggle>
-
-          <Dropdown.Menu >
-            <Dropdown.Item key="0" onSelect={this.props.update}>ALL BIRDS</Dropdown.Item>
-            {this.props.types.map((type) => {
-              return (<Dropdown.Item key={type} onSelect={() => {
-              this.props.sort(type)}} value={type}>{type}</Dropdown.Item>)
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
-        </Card.Body>
+          <Sorter update={this.props.update} types={this.props.types} sort={this.props.sort} />
         </Card>
     )
   }
