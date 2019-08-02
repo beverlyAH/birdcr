@@ -34,17 +34,14 @@ module.exports = {
   },
   editBird: (req, res) => {
     return Bird.findOneAndUpdate({
-      id: req.query.id
+      id: req.body.data
     }, 
     {
-      name: req.query.name,
-      date: req.query.date,
-      image: req.query.image,
-      location: req.query.location,
-      story: req.query.story
+      date: req.body.date,
+      location: req.body.location,
+      story: req.body.story
     })
     .then(data => {
-      console.log(data)
       res.send(data)
     })
     .catch(err => {
@@ -56,11 +53,6 @@ module.exports = {
     console.log(req.body.data.query)
     wiki.page(req.body.data.query)
       .then(data => {
-        // data.mainImage()
-        // .then(image => {
-        //   res.send(image)
-        // })
-        //
         data.images()
         .then(images => {
           var temp = images.slice()
@@ -84,7 +76,7 @@ module.exports = {
       })
       .catch(err => {
         console.log('error occurred in getBirdData()')
-        res.send(500)
+        res.sendStatus(500)
       })
   },
   deleteBird: (req, res) => {

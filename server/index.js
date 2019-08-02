@@ -22,7 +22,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.use('/birds', routes)
 
-let PORT = process.env.PORT || 3000
+let PORT = process.env.PORT || 3001
 app.listen(PORT, (err) => {
   if (err) {
     console.log('ERROR connecting to server:', err)

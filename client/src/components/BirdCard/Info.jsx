@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap'
 
 const Info = (props) => {
+  console.log(props)
   return (
     <React.Fragment>
     {props.bird.info.image && props.bird.info.image ? <Card.Img variant="top" src={props.bird.info.image} /> : <div></div>}

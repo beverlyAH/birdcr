@@ -39,7 +39,6 @@
     "cors": "^2.8.5",
     "ebird": "^1.0.8",
     "express": "^4.17.1",
-    "holderjs": "^2.9.6",
     "infobox-parser": "^3.3.0",
     "jest": "^24.8.0",
     "jquery": "^3.4.1",

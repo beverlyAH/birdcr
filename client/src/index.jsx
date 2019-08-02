@@ -1,11 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Search from './components/Search.jsx'
-import SightingForm from './components/SightingForm.jsx'
-// import Birds from './components/Birds.jsx'
 import axios from 'axios'
-import Gallery from './components/Gallery.jsx'
-import { Card, CardGroup, CardDeck, CardColumns } from 'react-bootstrap'
+import { CardColumns } from 'react-bootstrap'
 import BirdBox from './components/BirdBox.jsx'
 
 class Birds extends React.Component {
@@ -37,12 +34,19 @@ class Birds extends React.Component {
       })
   }
 
-  editSighting(id) {
-    axios.put('/birds', {data: id})
+  editSighting(id, update) {
+    axios.put('/birds', {
+      data: id,
+      date: update.date,
+      location: update.location,
+      story: update.story
+    })
       .then(results => {
-        console.log(results.data)
+        console.log('editSighting complete')
+        console.log(results)
       })
       .catch(err => {
+        console.log('editSighting errored')
         console.log(err)
       })
   }
@@ -99,9 +103,11 @@ class Birds extends React.Component {
     return (
         <CardColumns>
         <Search search={this.searchWikipedia} types={this.state.types} sort={this.sort} 
-        change={this.editSighting} update={this.props.update} />
+        change={this.editSighting} update={this.getBirds} />
         {this.state.birds && this.state.birds.map((bird) => {
-          return (<BirdBox key={bird.id} info={bird} delete={this.removeSighting} />)
+          return (<BirdBox key={bird.id}
+          info={bird} delete={this.removeSighting}
+          edit={this.editSighting} search={this.searchWikipedia} />)
         })}
         </CardColumns>
     )

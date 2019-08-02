@@ -10,7 +10,8 @@ class SightingForm extends React.Component {
     this.state = {
       location: '',
       date: '',
-      story: ''
+      story: '',
+      formData: {}
     }
     this.saveSighting = this.saveSighting.bind(this)
     this.reset = this.reset.bind(this)
@@ -57,8 +58,8 @@ class SightingForm extends React.Component {
       state[key] = e.target.value
       this.setState(state, () => {
         this.setState({formData: {
-          name: this.props.name,
-          image: this.props.image,
+          name: this.props.bird.name,
+          image: this.props.bird.image,
           date: this.state.date,
           story: this.state.story,
           location: this.state.location
