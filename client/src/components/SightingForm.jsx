@@ -96,7 +96,7 @@ class SightingForm extends React.Component {
                   </Tooltip>
                 }>
             <Button variant="info" type="submit" onClick={this.handleSubmit.bind(this)}>
-              Submit
+              Select Image
               </Button>
               </OverlayTrigger>
               <Gallery show={this.state.showGallery} 
