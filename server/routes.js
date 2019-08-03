@@ -11,5 +11,7 @@ router.route('/data/')
   .get(controller.getBirdData)
   .post(controller.getBirdData)
 
+router.route('/api/')
+  .get(controller.getApiKey)
 
 module.exports = router

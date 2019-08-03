@@ -2,6 +2,7 @@ const axios = require('axios')
 const wikijs = require('wikijs').default
 const info = require('infobox-parser')
 const Bird  = require('../db/models.js')
+const { GOOGLE_KEY } = require('../google.js')
 
 const wiki = wikijs()
 
@@ -90,5 +91,8 @@ module.exports = {
       console.log(err)
       res.send(500)
     })
+  },
+  getApiKey: (req, res) => {
+    res.send(GOOGLE_KEY)
   }
 }
