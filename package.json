@@ -9,7 +9,7 @@
   "main": "index.jsx",
   "scripts": {
     "start": "nodemon server/index.js",
-    "build": "webpack -d --watch",
+    "build": "webpack -p",
     "test": "jest"
   },
   "repository": {
