@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
 
-const GOOGLE_KEY = process.env.GOOGLE_KEY || 'google_api'
+import { GOOGLE_KEY } from '../../../../google.js'
 
 const Map = (props) => {
   return (
