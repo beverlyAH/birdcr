@@ -1,6 +1,5 @@
 import React from 'react'
 import { Modal, Button, Form, InputGroup, FormControl } from 'react-bootstrap'
-import SightingForm from '../SightingForm.jsx'
 import DateTime from 'react-datetime'
 
 class Editor extends React.Component {
@@ -81,10 +80,13 @@ class Editor extends React.Component {
           <Button onClick={this.props.close} variant="secondary">Cancel</Button>
           <Button variant="info" onClick={()=>{
             this.props.edit(this.props.bird.info.id, {
+              name: this.props.bird.info.name,
+              image: this.props.bird.info.image,
               date: this.state.editorData.date,
               location: this.state.editorData.location,
               story: this.state.editorData.story})
               this.props.close()
+              this.props.update()
             }}>Confirm Edit</Button>
         </Modal.Footer>
       </Modal>

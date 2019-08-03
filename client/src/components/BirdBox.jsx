@@ -45,7 +45,7 @@ class BirdBox extends React.Component {
         openDelete={()=> {this.handleOpen('delete')}} closeDelete={()=>{this.handleClose('delete')}}
         openEditor={()=> {this.handleOpen('edit')}} closeEditor={()=>{this.handleClose('edit')}} />
         <DeletionNotice show={this.state.showDelete} bird={this.props} close={()=>{this.handleClose('delete')}} delete={this.props.delete} />
-        <Editor bird={this.props} search={this.props.search} edit={this.props.edit} show={this.state.showEditor} close={()=>{this.handleClose('edit')}}></Editor>
+        <Editor bird={this.props} update={this.props.update} search={this.props.search} edit={this.props.edit} show={this.state.showEditor} close={()=>{this.handleClose('edit')}}></Editor>
         <Map bird={this.props} />
       </Card>
     )
