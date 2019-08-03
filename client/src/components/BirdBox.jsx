@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card, ListGroup, ListGroupItem, Toast, Button } from 'react-bootstrap'
-import { GOOGLE_KEY } from './../../../config.js'
 import Info from './BirdCard/Info.jsx'
 import Links from './BirdCard/Links.jsx'
 import DeletionNotice from './BirdCard/DeletionNotice.jsx';
