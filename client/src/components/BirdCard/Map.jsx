@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-import { GOOGLE_KEY } from '../../../../config.js'
+
+const GOOGLE_KEY = process.env.GOOGLE_KEY
 
 const Map = (props) => {
   return (
