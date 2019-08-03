@@ -36,7 +36,6 @@ class BirdBox extends React.Component {
   }
   
   render() {
-    console.log('BIRDBOX PROPS ', this.props)
     return (
       <Card style={{ width: '475px' }} className="bird">
         <Info bird={this.props} />
