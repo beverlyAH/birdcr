@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, ListGroup, ListGroupItem, Toast, Button } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import Info from './BirdCard/Info.jsx'
 import Links from './BirdCard/Links.jsx'
 import DeletionNotice from './BirdCard/DeletionNotice.jsx';
