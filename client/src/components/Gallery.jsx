@@ -4,7 +4,7 @@ import { Modal, Button } from 'react-bootstrap'
 const Gallery = (props) => {
     return (
 
-          <Modal show={props.show} size="lg">
+          <Modal show={props.show} size="lg" onHide={this.close}>
             <Modal.Header>
               <h3>Select a photo!</h3>
             </Modal.Header>

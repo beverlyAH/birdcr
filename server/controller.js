@@ -51,7 +51,6 @@ module.exports = {
     })
   },
   getBirdData: (req, res) => {
-    console.log(req.body.data.query)
     wiki.page(req.body.data.query)
       .then(data => {
         data.images()
