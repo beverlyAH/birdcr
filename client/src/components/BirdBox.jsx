@@ -45,7 +45,6 @@ class BirdBox extends React.Component {
   getApiKey() {
     axios.get('/birds/api/')
       .then(results => {
-        console.log(results)
         this.setState({GOOGLE_KEY: results.data})
       })
   }
