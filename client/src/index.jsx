@@ -10,7 +10,8 @@ class Birds extends React.Component {
     super(props)
     this.state = {
       birds: [],
-      types: []
+      types: [],
+      map: ''
     }
     this.getBirds = this.getBirds.bind(this)
     this.getBirdTypes = this.getBirdTypes.bind(this)
@@ -18,12 +19,22 @@ class Birds extends React.Component {
     this.sort = this.sort.bind(this)
     this.removeSighting = this.removeSighting.bind(this)
     this.editSighting = this.editSighting.bind(this)
+    this.getApiKey = this.getApiKey.bind(this)
   }
 
   componentDidMount() {
-    this.getBirds()
+    this.getApiKey(() => {
+      this.getBirds()
+    })
   }
 
+  getApiKey(callback) {
+    axios.get('/birds/key/')
+      .then(results => {
+        this.setState({map: results.data})
+        callback()
+      })
+  }
   removeSighting(id) {
     axios.delete('/birds/', {params: {id: id}})
       .then(results => {
@@ -107,7 +118,7 @@ class Birds extends React.Component {
         {this.state.birds && this.state.birds.map((bird) => {
           return (<BirdBox key={bird.id}
           info={bird} delete={this.removeSighting}
-          edit={this.editSighting} search={this.searchWikipedia} />)
+          edit={this.editSighting} search={this.searchWikipedia} staticmap={this.state.map}/>)
         })}
         </CardColumns>
     )

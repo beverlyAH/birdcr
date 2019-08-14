@@ -1,0 +1,3 @@
+module.exports = {
+  GOOGLE_KEY: 'GOOGLE STATIC MAP API KEY HERE'
+}

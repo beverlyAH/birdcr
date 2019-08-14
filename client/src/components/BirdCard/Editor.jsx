@@ -41,7 +41,6 @@ class Editor extends React.Component {
   }
 
   render() {
-    console.log('DATE: ', this.state.date)
     return (
       <React.Fragment>
       <Modal show={this.props.show} size="xl" centered onHide={this.props.close}>

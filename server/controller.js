@@ -90,5 +90,9 @@ module.exports = {
       console.log(err)
       res.send(500)
     })
+  },
+  getApiKey: (req, res) => {
+    let { GOOGLE_KEY } = require('../google.js')
+    res.send(JSON.stringify(GOOGLE_KEY))
   }
 }

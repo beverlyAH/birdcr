@@ -37,7 +37,6 @@ class BirdBox extends React.Component {
   }
   
   render() {
-    console.log('BIRDBOX PROPS ', this.props)
     return (
       <Card style={{ width: '475px' }} className="bird">
         <Info bird={this.props} />
@@ -46,7 +45,7 @@ class BirdBox extends React.Component {
         openEditor={()=> {this.handleOpen('edit')}} closeEditor={()=>{this.handleClose('edit')}} />
         <DeletionNotice show={this.state.showDelete} bird={this.props} close={()=>{this.handleClose('delete')}} delete={this.props.delete} />
         <Editor bird={this.props} search={this.props.search} edit={this.props.edit} show={this.state.showEditor} close={()=>{this.handleClose('edit')}}></Editor>
-        <Map bird={this.props} />
+        <Map bird={this.props} staticmap={this.props.staticmap} />
       </Card>
     )
   }
