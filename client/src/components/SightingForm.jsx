@@ -1,103 +1,114 @@
 import React from 'react'
-import { InputGroup, FormControl, Image, Card, Button } from 'react-bootstrap'
-import DateTime from 'react-datetime'
-import '../../../node_modules/react-datetime/css/react-datetime.css'
-import axios from 'axios';
+import { Card, Form, Col, OverlayTrigger, Tooltip, Button } from 'react-bootstrap'
+import Gallery from './Gallery.jsx'
+import InputForm from './InputForm.jsx'
+import Sorter from './Sorter.jsx'
 
 class SightingForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      location: '',
-      date: '',
-      story: '',
-      formData: {}
+      showGallery: false,
+      name: '',
+      message: ''
     }
-    this.saveSighting = this.saveSighting.bind(this)
-    this.reset = this.reset.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.handleOpen = this.handleOpen.bind(this)
+    this.clear = this.clear.bind(this)
   }
 
-  reset() {
-    let state = {
-      location: '',
-      date: '',
-      story: ''
-    }
-    this.setState(state, () => {
-      this.props.clear()
+  componentDidMount() {
+  }
+
+  clear() {
+    this.setState({
+      name: '',
+      image: false,
+      message: '',
+      showGallery: false
     })
   }
 
-  saveSighting() {
-    if(!this.props.name ||
-      !this.props.image ||
-      !this.state.location ||
-      !this.state.story ||
-      !this.state.date) {
-        return
-      }
-    axios.post('/birds/', this.state.formData)
-    .then(results => {
-      this.props.update(() => {
-        this.reset()
-        this.props.clear()
-      })
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  handleOpen() {
+    this.setState({showGallery: true})
+  }
+
+  handleClose() {
+    this.setState({showGallery: false})
+  }
+
+  handleChange(e) {
+    this.setState({name: e.target.value})
   }
 
   handleSelect(e) {
-    this.setState({date: e._d})
+    console.log(e.target)
+    if(!e.target.src) {
+      return
+    }
+    this.setState({image: e.target.src}, () => {
+      this.setState({message: `${this.state.name} image selected.`}, () => {
+        this.handleClose()
+      })
+    })
   }
 
-  handleChange(key) {
-    return function(e) {
-      let state = {}
-      state[key] = e.target.value
-      this.setState(state, () => {
-        this.setState({formData: {
-          name: this.props.bird.name,
-          image: this.props.bird.image,
-          date: this.state.date,
-          story: this.state.story,
-          location: this.state.location
-        }});
-      });
+  handleSubmit(e) {
+    e.preventDefault()
+    if(!this.state.name) {
+      return
+    } else {
+      this.props.search(this.state.name, (err, results) => {
+        if(err) {
+          console.log(err)
+        } else {
+          this.setState({images: results.data}, () => {
+            this.setState({message: `${this.state.name} images retrieved.`}, () => {
+              this.setState({showGallery: true})
+            })
+          })
+        }
+      })
     }
   }
 
   render() {
     return (
-    <Card.Body>
-      <label>{this.props.name ? this.props.name : 'Species Name'}</label>
-      <InputGroup className="mb-3">
-      <InputGroup.Prepend>
-      <InputGroup.Text>When?</InputGroup.Text></InputGroup.Prepend>
-      <DateTime value={this.state.date} closeOnSelect={true} onChange={this.handleSelect.bind(this)} dateFormat="MM-DD-YYYY" timeFormat={false}/>
-      </InputGroup>
-  <InputGroup className="mb-3">
-    <InputGroup.Prepend>
-      <InputGroup.Text id="basic-addon2">Location</InputGroup.Text>
-    </InputGroup.Prepend>
-    <FormControl value={this.state.location} onChange={this.handleChange('location').bind(this)}
-      placeholder="Where did we see it?"
-      aria-describedby="basic-addon2"
-    />
-  </InputGroup>
-  <InputGroup className="mb-3">
-    <InputGroup.Prepend>
-      <InputGroup.Text id="basic-addon2">Story!</InputGroup.Text>
-    </InputGroup.Prepend>
-    <FormControl value={this.state.story} onChange={this.handleChange('story').bind(this)}
-      placeholder="Anything interesting?"
-      aria-label="Recipient's username"
-      aria-describedby="basic-addon2"
-      />
-  </InputGroup>
-  <Button onClick={this.saveSighting} variant="info">Save Sighting</Button> <Button onClick={this.reset} variant="info">Clear</Button>
-    </Card.Body>
+      <Card style={{ width: '400px', height: '450px' }}>
+        <Card.Body>
+        <Form>
+          <Form.Row>
+            <Col>
+              <Form.Control placeholder="Species"
+              value={this.state.name} onSubmit={this.handleSubmit.bind(this)}
+              onChange={this.handleChange.bind(this)} />
+              {this.state.message}
+            </Col>
+            <Col>
+              <OverlayTrigger
+                key="right"
+                placement="right"
+                overlay={
+                  <Tooltip id={`tooltip-right`}>
+                    Photos are retrieved from <strong>Wikipedia</strong>.
+                    Make sure to match desired species with a Wiki result. 
+                  </Tooltip>
+                }>
+            <Button variant="info" type="submit" onClick={this.handleSubmit.bind(this)}>
+              Submit
+              </Button>
+              </OverlayTrigger>
+              <Gallery show={this.state.showGallery} 
+              gallery={this.state.images} open={this.handleOpen} close={this.handleClose}
+              clear={this.clear} select={this.handleSelect} />
+            </Col>
+          </Form.Row>
+        </Form>
+        </Card.Body>
+          <InputForm image={this.state.image} name={this.state.name} clear={this.clear} bird={this.props.bird} update={this.props.update}/>
+          <Sorter update={this.props.update} types={this.props.types} sort={this.props.sort} />
+        </Card>
     )
   }
 }
