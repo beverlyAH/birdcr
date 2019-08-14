@@ -43,7 +43,6 @@ class SightingForm extends React.Component {
   }
 
   handleSelect(e) {
-    console.log(e.target)
     if(!e.target.src) {
       return
     }
@@ -61,7 +60,7 @@ class SightingForm extends React.Component {
     } else {
       this.props.search(this.state.name, (err, results) => {
         if(err) {
-          console.log(err)
+          console.error(err)
         } else {
           this.setState({images: results.data}, () => {
             this.setState({message: `${this.state.name} images retrieved.`}, () => {

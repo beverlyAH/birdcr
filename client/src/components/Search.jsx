@@ -1,9 +1,8 @@
 import React from 'react'
-import { Form, Col, Button, Card, Dropdown, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import SightingForm from './InputForm.jsx/index.js'
-import Selector from './SightingForm.jsx/index.js.js'
+import { Card } from 'react-bootstrap'
+import SightingForm from './InputForm.jsx'
+import Selector from './SightingForm.jsx'
 import Sorter from './Sorter.jsx'
-import Gallery from './Gallery.jsx'
 
 class Search extends React.Component {
   constructor(props) {

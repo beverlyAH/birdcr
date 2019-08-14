@@ -41,7 +41,7 @@ class Birds extends React.Component {
         this.getBirds()
       })
       .catch(err => {
-        console.log(err)
+        console.error(err)
       })
   }
 
@@ -52,13 +52,9 @@ class Birds extends React.Component {
       location: update.location,
       story: update.story
     })
-      .then(results => {
-        console.log('editSighting complete')
-        console.log(results)
-      })
+      .then(this.getBirds())
       .catch(err => {
-        console.log('editSighting errored')
-        console.log(err)
+        console.error(err)
       })
   }
 
@@ -84,7 +80,7 @@ class Birds extends React.Component {
         })
       })
       .catch(err => {
-        console.log(err)
+        console.error(err)
       })
   }
 
